@@ -2,13 +2,13 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    function getPlanets(res, mysql, context, complete){
-        mysql.pool.query("SELECT planet_id as id, name FROM bsg_planets", function(error, results, fields){
+    function getProjects(res, mysql, context, complete){
+        mysql.pool.query("SELECT Pnumber, Pname FROM PROJECT", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.planets  = results;
+            context.projects  = results;
             complete();
         });
     }
@@ -75,28 +75,28 @@ module.exports = function(){
         context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
         var mysql = req.app.get('mysql');
         getEmployees(res, mysql, context, complete);
-        getPlanets(res, mysql, context, complete);
+        getProjects(res, mysql, context, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 2){
-                res.render('people', context);
+                res.render('employee', context);
             }
 
         }
     });
 
     /*Display all employees for a given project. Requires web based javascript to delete users with AJAX*/
-    router.get('/filter/:homeworld', function(req, res){
+    router.get('/filter/:project', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+        context.jsscripts = ["filterpeople.js","searchpeople.js"];
         var mysql = req.app.get('mysql');
         getPeoplebyHomeworld(req,res, mysql, context, complete);
         getPlanets(res, mysql, context, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 2){
-                res.render('people', context);
+                res.render('employee', context);
             }
 
         }
@@ -113,7 +113,7 @@ module.exports = function(){
         function complete(){
             callbackCount++;
             if(callbackCount >= 2){
-                res.render('people', context);
+                res.render('employee', context);
             }
         }
     });

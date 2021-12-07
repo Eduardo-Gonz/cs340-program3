@@ -20,15 +20,15 @@
     </tbody> 
 </table> 
 <p>
-<form id='filter_people' action='' method=''>
+<form id='filter_employee' action='' method=''>
 <!--- this form does not submit directly, the button handles all the interaction with backend -->
     <label> Filter by Project </label>
-    <select id='homeworld_filter' name="homeworld"> 
-        {{#each planets}}
-        <option value="{{id}}">{{name}}</option>
+    <select id='project_filter' name="project"> 
+        {{#each projects}}
+        <option value="{{Pnumber}}">{{Pname}}</option>
         {{/each}}
     </select><br>
-    <input type="button" value="Filter" onclick="filterPeopleByHomeworld()">
+    <input type="button" value="Filter" onclick="filterEmployeeByProject()">
 </form>
 <p>
 <form id='search_people' action='' method=''>
