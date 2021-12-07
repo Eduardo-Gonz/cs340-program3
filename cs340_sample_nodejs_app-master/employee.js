@@ -48,7 +48,7 @@ module.exports = function(){
                 context.Plocation = "NO WHERE";
             }
         });
-        
+
         complete();
     }
 
@@ -64,6 +64,7 @@ module.exports = function(){
                 res.end();
             }
             context.employee = results;
+            context.SEARCH = mysql.pool.escape(req.params.s);
             complete();
         });
     }
