@@ -34,21 +34,21 @@
     <input type="button" value="Search" onclick="searchPeopleByFirstName()">
 </form>
 
-<h3>Current people:</h3>
+<h3>Current Employees:</h3>
 <table>
     <thead> 
         <th>First Name</th> 
         <th>Last Name</th> 
-        <th>Homeworld</th>
-        <th>Age</th>  
+        <th>Salary</th>
+        <th>Dno</th>  
     </thead> 
     <tbody>
-        {{#each people}} 
+        {{#each employee}} 
         <tr> 
-            <td>{{fname}}</td> 
-            <td>{{lname}}</td> 
-            <td>{{homeworld}}</td> 
-            <td>{{age}}</td>
+            <td>{{Fname}}</td> 
+            <td>{{Lname}}</td> 
+            <td>{{Salary}}</td> 
+            <td>{{Dno}}</td>
             <td><button onclick="deletePerson({{id}})">Delete</button></td>
             <td><a href="/people/{{id}}">Update</a></td>
         </tr> 
