@@ -34,8 +34,22 @@ module.exports = function(){
                 res.end();
             }
             context.employee = results;
-            complete();
+            context.PNO = req.params.project;
+            //complete();
         });
+        var sq12 = "SELECT Pname , Plocation FROM PROJECT WHERE Pnumber = ?";
+        var inserts2 = [req.params.project];
+        mysql.pool.query(sq12, inserts2, function(error, results2, fields) {
+            if (results2[0]) {
+                context.Pname = results2[0].Pname;
+                context.Plocation = results2[0].Plocation;
+            } else {
+                context.Pname = "Does not exist";
+                context.Plocation = "NO WHERE";
+            }
+        });
+        
+        complete();
     }
 
     /* Find employees whose fname starts with a given string in the req */

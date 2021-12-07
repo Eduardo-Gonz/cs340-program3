@@ -1,7 +1,10 @@
 <html>
 <h1>Company Database</h1>
 <h2>Current Employees:</h2>
-<table>
+{{#if PNO}}
+    <h4>Project Number {{PNO}}: {{Pname}} located in {{Plocation}}</h4>
+{{/if}}
+<table id="t01">
     <thead> 
         <th>First Name</th> 
         <th>Last Name</th> 
