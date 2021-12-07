@@ -69,19 +69,6 @@ module.exports = function(){
         });
     }
 
-    function getPerson(res, mysql, context, id, complete){
-        var sql = "SELECT character_id as id, fname, lname, homeworld, age FROM bsg_people WHERE character_id = ?";
-        var inserts = [id];
-        mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.end();
-            }
-            context.person = results[0];
-            complete();
-        });
-    }
-
     /*Display all employees. Requires web based javascript to delete users with AJAX*/
 
     router.get('/', function(req, res){
@@ -130,6 +117,22 @@ module.exports = function(){
             if(callbackCount >= 2){
                 res.render('employee', context);
             }
+        }
+    });
+
+    router.get('/search/', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["filteremployee.js","searchemployee.js"];
+        var mysql = req.app.get('mysql');
+        getEmployees(res, mysql, context, complete);
+        getProjects(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('employee', context);
+            }
+
         }
     });
 
